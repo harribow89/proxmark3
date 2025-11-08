@@ -226,8 +226,6 @@ void RunMod(void) {
     uint8_t tagType = 11; // 11 = ISO/IEC 14443-4 - javacard (JCOP)
     tag_response_info_t *responses;
     uint32_t cuid = 0;
-    uint32_t counters[3] = { 0x00, 0x00, 0x00 };
-    uint8_t tearings[3] = { 0xbd, 0xbd, 0xbd };
     uint8_t pages = 0;
 
     // command buffers
@@ -308,7 +306,7 @@ void RunMod(void) {
                     chktoken = false;
                     LED_C_OFF();
                     LED_B_ON();
-                    uint8_t apdulen = iso14_apdu(apdus[i], (uint16_t) apduslen[i], false, apdubuffer, NULL);
+                    uint8_t apdulen = iso14_apdu(apdus[i], (uint16_t) apduslen[i], false, apdubuffer, sizeof(apdubuffer), NULL);
 
                     if (apdulen > 0) {
                         DbpString(_YELLOW_("[ ") "Proxmark command" _YELLOW_(" ]"));
@@ -377,7 +375,7 @@ void RunMod(void) {
             // free eventually allocated BigBuf memory but keep Emulator Memory
             BigBuf_free_keep_EM();
 
-            if (SimulateIso14443aInit(tagType, flags, data, &responses, &cuid, counters, tearings, &pages) == false) {
+            if (SimulateIso14443aInit(tagType, flags, data, NULL, 0, &responses, &cuid, &pages, NULL) == false) {
                 BigBuf_free_keep_EM();
                 reply_ng(CMD_HF_MIFARE_SIMULATE, PM3_EINIT, NULL, 0);
                 DbpString(_YELLOW_("!!") "Error initializing the emulation process!");
@@ -403,7 +401,7 @@ void RunMod(void) {
             for (;;) {
                 LED_B_OFF();
                 // clean receive command buffer
-                if (!GetIso14443aCommandFromReader(receivedCmd, receivedCmdPar, &len)) {
+                if (GetIso14443aCommandFromReader(receivedCmd, sizeof(receivedCmd), receivedCmdPar, &len) == false) {
                     DbpString(_YELLOW_("!!") "Emulator stopped");
                     retval = PM3_EOPABORTED;
                     break;
