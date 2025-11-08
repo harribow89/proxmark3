@@ -46,6 +46,7 @@ The Proxmark3 is the swiss-army tool of RFID, allowing for interactions with the
 | [Advanced Compilation Parameters](/doc/md/Use_of_Proxmark/4_Advanced-compilation-parameters.md) | [More Cheat Sheets](https://github.com/RfidResearchGroup/proxmark3/wiki/More-cheat-sheets)|
 | [Troubleshooting](/doc/md/Installation_Instructions/Troubleshooting.md) | [Complete Client Command Set](/doc/commands.md) |
 | [JTAG](/doc/jtag_notes.md) | [T5577 Introduction Guide](/doc/T5577_Guide.md)|
+|| [GUI Testing Guide](/doc/md/Use_of_Proxmark/GUI-Testing-Guide.md)|
 
 
 
@@ -206,7 +207,9 @@ See [Proxmark3 precompiled builds](https://www.proxmarkbuilds.org/)
 
 ## Proxmark3 GUI
 
-The official PM3-GUI from Gaucho will not work. Not to mention is quite old and not maintained any longer.
+**Built-in Qt GUI:** This repository includes a built-in Qt-based GUI for graph visualization and image display. See the [GUI Testing Guide](/doc/md/Use_of_Proxmark/GUI-Testing-Guide.md) for details on features, installation, and testing.
+
+**External GUI Applications:** The official PM3-GUI from Gaucho will not work. Not to mention is quite old and not maintained any longer.
 
 - [Proxmark3 Universal GUI](https://github.com/burma69/PM3UniversalGUI) will work more or less.
 - [Proxmark3 GUI cross-compiled](https://github.com/wh201906/Proxmark3GUI/) which is recently updated and claims to support latest source of this repo.
